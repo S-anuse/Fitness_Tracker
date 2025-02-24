@@ -20,7 +20,8 @@ db = firestore.client()
 # Initialize Flask app
 app = Flask(__name__)
 
-# Home Route
+
+
 @app.route("/", methods=["GET"])
 def home():
     return jsonify({"message": "Welcome to the Fitness Tracker API!"})
