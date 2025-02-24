@@ -8,6 +8,10 @@ REDIRECT_URI = os.getenv("REDIRECT_URI")
 
 app = Flask(__name__)
 
+@app.route("/")
+def home():
+    return "Welcome to the Fitness Tracker Website!"
+
 @app.route("/login")
 def login():
     strava_url = f"https://www.strava.com/oauth/authorize?client_id={CLIENT_ID}&response_type=code&redirect_uri={REDIRECT_URI}&approval_prompt=force&scope=activity:read_all"
