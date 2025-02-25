@@ -33,13 +33,23 @@ def exchange_token():
     response = requests.post(token_url, data=payload)
     token_data = response.json()
     ACCESS_TOKEN = token_data.get("access_token")
+    with open("access_token.json", "w") as token_file:
+        json.dump(token_data, token_file)
     return jsonify(response.json())
 
 @app.route("/get_activities")
 def get_activities():
     global ACCESS_TOKEN
     if not ACCESS_TOKEN:
-        return jsonify({"error": "Access token not available. Please authenticate first."}), 401
+        try:
+            with open("access_token.json", "r") as token_file:
+                token_data = json.load(token_file)
+                ACCESS_TOKEN = token_data.get("access_token")
+        except (FileNotFoundError, json.JSONDecodeError):
+            return jsonify({"error": "Access token not available. Please authenticate first."}), 401
+
+
+        # return jsonify({"error": "Access token not available. Please authenticate first."}), 401
 
     headers = {"Authorization": f"Bearer {ACCESS_TOKEN}"}
     response = requests.get("https://www.strava.com/api/v3/athlete/activities", headers=headers)
