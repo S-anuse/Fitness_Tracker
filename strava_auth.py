@@ -23,7 +23,8 @@ if os.getenv("RENDER") is None:  # Render sets env variables directly
 CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 # Automatically set REDIRECT_URI based on environment
-REDIRECT_URI = os.getenv("REDIRECT_URI") if os.getenv("RENDER") else "http://127.0.0.1:5000/exchange_token"
+REDIRECT_URI = os.getenv("REDIRECT_URI", "").strip() if os.getenv("RENDER") else "http://127.0.0.1:5000/exchange_token"
+
 
 app = Flask(__name__)
 
@@ -36,6 +37,7 @@ def home():
 @app.route("/login")
 def login():
     strava_url = f"https://www.strava.com/oauth/authorize?client_id={CLIENT_ID}&response_type=code&redirect_uri={REDIRECT_URI}&approval_prompt=force&scope=activity:read_all"
+    print(f"Generated Strava URL: {repr(strava_url)}")
     return redirect(strava_url)
 
 @app.route("/exchange_token")
