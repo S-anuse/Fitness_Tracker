@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 import os
 import firebase_admin
+from fetch_strava_data import get_activity_data 
 from firebase_admin import credentials, firestore
 
 # Load environment variables
@@ -40,6 +41,16 @@ def get_users():
     users = db.collection("users").stream()
     user_list = [{user.id: user.to_dict()} for user in users]
     return jsonify(user_list)
+
+
+
+# Fetch fitness data from Strava
+@app.route("/get_fitness_data", methods=["GET"])
+def get_fitness_data():
+    data = get_activity_data()
+    return jsonify(data)
+
+
 
 # Run the Flask app
 if __name__ == "__main__":
