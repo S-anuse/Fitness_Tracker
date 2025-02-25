@@ -14,9 +14,9 @@ if os.getenv("RENDER") is None:  # Render sets env variables directly
 
 
 
-print("CLIENT_ID:", os.getenv("CLIENT_ID"))  # Debugging output
-print("CLIENT_SECRET:", os.getenv("CLIENT_SECRET"))
-print("REDIRECT_URI:", os.getenv("REDIRECT_URI"))
+# print("CLIENT_ID:", os.getenv("CLIENT_ID"))  # Debugging output
+# print("CLIENT_SECRET:", os.getenv("CLIENT_SECRET"))
+# print("REDIRECT_URI:", os.getenv("REDIRECT_URI"))
 
 
 
