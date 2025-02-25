@@ -4,13 +4,12 @@ from flask import Flask, request, redirect, jsonify
 import json  # Add this at the top
 
 
-import os
-from dotenv import load_dotenv
 
 
 
 # Load .env file only if running locally
 if os.getenv("RENDER") is None:  # Render sets env variables directly
+    from dotenv import load_dotenv
     load_dotenv()  # Load from .env if not on Render
 
 
