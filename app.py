@@ -4,20 +4,28 @@ import os
 import firebase_admin
 from fetch_strava_data import get_activity_data 
 from firebase_admin import credentials, firestore
+import json
 
 # Load environment variables
 load_dotenv()
 
-import json
 
-cred_json = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-if not cred_json:
-    raise ValueError("GOOGLE_APPLICATION_CREDENTIALS is not set in the environment variables")
 
-cred_dict = json.loads(cred_json)  # Convert string to dictionary
-cred = credentials.Certificate(cred_dict)
+cred_path = "D:/Project/Fitness_Tracker/backend/firebase-adminsdk.json"
+
+if not cred_path or not os.path.exists(cred_path):
+    raise ValueError("Invalid or missing GOOGLE_APPLICATION_CREDENTIALS file path")
+
+cred = credentials.Certificate(cred_path)
+
+
 firebase_admin.initialize_app(cred)
 db = firestore.client()
+
+print("cred_path content:", repr(cred_path))
+
+
+
 
 # Initialize Flask app
 app = Flask(__name__)
