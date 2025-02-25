@@ -7,7 +7,13 @@ import json  # Add this at the top
 import os
 from dotenv import load_dotenv
 
-load_dotenv()  # Ensure environment variables are loaded
+
+
+# Load .env file only if running locally
+if os.getenv("RENDER") is None:  # Render sets env variables directly
+    load_dotenv()  # Load from .env if not on Render
+
+
 
 print("CLIENT_ID:", os.getenv("CLIENT_ID"))  # Debugging output
 print("CLIENT_SECRET:", os.getenv("CLIENT_SECRET"))
@@ -17,7 +23,8 @@ print("REDIRECT_URI:", os.getenv("REDIRECT_URI"))
 
 CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
-REDIRECT_URI = os.getenv("REDIRECT_URI")
+# Automatically set REDIRECT_URI based on environment
+REDIRECT_URI = os.getenv("REDIRECT_URI") if os.getenv("RENDER") else "http://127.0.0.1:5000/exchange_token"
 
 app = Flask(__name__)
 
