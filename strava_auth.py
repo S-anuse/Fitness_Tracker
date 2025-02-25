@@ -1,6 +1,8 @@
 import os
 import requests
 from flask import Flask, request, redirect, jsonify
+import json  # Add this at the top
+
 
 CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
