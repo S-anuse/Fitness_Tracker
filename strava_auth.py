@@ -4,6 +4,17 @@ from flask import Flask, request, redirect, jsonify
 import json  # Add this at the top
 
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # Ensure environment variables are loaded
+
+print("CLIENT_ID:", os.getenv("CLIENT_ID"))  # Debugging output
+print("CLIENT_SECRET:", os.getenv("CLIENT_SECRET"))
+print("REDIRECT_URI:", os.getenv("REDIRECT_URI"))
+
+
+
 CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 REDIRECT_URI = os.getenv("REDIRECT_URI")
