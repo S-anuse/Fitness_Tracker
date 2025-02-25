@@ -8,13 +8,14 @@ from firebase_admin import credentials, firestore
 # Load environment variables
 load_dotenv()
 
-# Get credentials path
-cred_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-if not cred_path:
+import json
+
+cred_json = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+if not cred_json:
     raise ValueError("GOOGLE_APPLICATION_CREDENTIALS is not set in the environment variables")
 
-# Initialize Firebase
-cred = credentials.Certificate(cred_path)
+cred_dict = json.loads(cred_json)  # Convert string to dictionary
+cred = credentials.Certificate(cred_dict)
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
